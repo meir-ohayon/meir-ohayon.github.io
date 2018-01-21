@@ -1,3 +1,9 @@
+---
+layout: post
+title: Adjusting angular plunker setup for local development setup
+date: 2018-01-21
+---
+
 # Adjusting angular plunker setup for local development setup
 ## In index.html
 1.	Change from <base href="." /> to <base href="/" />
