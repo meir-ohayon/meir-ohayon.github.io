@@ -2,6 +2,7 @@
 layout: post
 title: Adjusting angular plunker setup for local development setup
 date: 2018-01-21
+categories: angular
 ---
 
 # Adjusting angular plunker setup for local development setup
