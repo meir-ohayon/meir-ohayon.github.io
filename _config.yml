@@ -13,3 +13,6 @@ minima:
 
 # Build settings
 markdown: kramdown
+
+disqus:
+    shortname: meir-ohayon-blog
