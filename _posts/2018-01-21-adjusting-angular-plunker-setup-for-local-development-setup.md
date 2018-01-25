@@ -11,7 +11,7 @@ Download the plunker angular setup by visiting https://plnkr.co/ and clicking th
 1.	Change from &lt;base href=\".\" /&gt; to &lt;base href=\"/\" /&gt;
 2.	Add bellow this: &lt;meta charset=\"UTF-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;
 3.	Change from &lt;script src=\"config.js\"&gt;&lt;/script&gt; to &lt;script src=\"systemjs.config.js\"&gt;&lt;/script&gt;<br>Change also the file name !
-4.	Change from: System.import('app')<br>to: System.import('src/main.js')
+4.	Change from: System.import(\'app\')<br>to: System.import(\'src/main.js\')
 
 ## In systemjs.config.js (you have changed to this name from config.js)
 1.	Delete (or comment) the first lines in the System.config method:<br>transpiler: \'typescript\',<br>typescriptOptions: {<br>   emitDecoratorMetadata: true<br>},
