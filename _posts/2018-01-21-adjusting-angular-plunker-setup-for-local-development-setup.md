@@ -5,6 +5,7 @@ date: 2018-01-21
 categories: angular
 ---
 
+Download the plunker angular setup by visiting https://plnkr.co/ and clicking the 'Launch the Editor' button, then in the top menu choose New->Angular , after it will finish loading click the download button in the top right corner to download this setup as a zip file, extract it, rename the folder name to your project name, and for converting it to local development setup follow those steps:
 
 ## In index.html
 1.	Change from &lt;base href="." /&gt; to &lt;base href="/" /&gt;
