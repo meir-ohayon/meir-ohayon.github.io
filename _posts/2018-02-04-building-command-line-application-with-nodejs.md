@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Building Command Line Application with Node.js. Explains how to build package that act, also or just, as command line tool
-date: 2018-01-21
-categories: angular
+date: 2018-02-04
+categories: nodejs
 ---
 
 We all know how to run node or js scripts in command line tool (cli) using the command node <i><b>path/to/script/script_file_name</b></i> , - but what if we want to give clients of our package the ability to run our scripts in <b>their</b> cli using the node command mentioned or alternatively (to save repeatedly typing of long commands) to alias those scripts in <b>their</b> package.json scripts section and then run the desired script with the command <b><i>npm run alias_name</i></b> ?
