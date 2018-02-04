@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building Command Line Application with Node.js - i.e.: how to build package that act (also or just) as command line tool
+title: Building Command Line Application with Node.js. Explains how to build package that act (also or just) as command line tool
 date: 2018-01-21
 categories: angular
 ---
