@@ -75,7 +75,7 @@ Save this and run
     
 You should see response similar to this:
 
-```javascript
+```
 I am my-cmd.js
 My arguments are:
 C:\Program Files\nodejs\node.exe,C:\Users\meir\AppData\Roaming\npm\node_modules\cli-package\bin\my-cmd.js,param-a,param-b
