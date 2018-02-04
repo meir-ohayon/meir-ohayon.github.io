@@ -14,7 +14,7 @@ Here are two points of definitions that important for the rest of this article:
 *	Each binary script file must start with the line:<br>#! /usr/bin/env node<br>This line is needed in all OS, including non-linux OS like Windows or Mac,- if you omit this line the solution I'll give just bellow will not enable you to run the script by name directly without prefixing the command name with node (e.g. this way you can run the script from any directory simply by calling it by name and nothing more).
 
 ## The package.json bin section
-To solve the problem described here, the package.json bin section had created. In the bin section we map command name to binary script file. <b>On global install of the package<b>, npm will add all the scripts mentioned in the bin section to the PATH, thus enabling you run them from any directory, and also enable running them simply by calling their names and nothing more!
+To solve the problem described here, the package.json bin section had created. In the bin section we map command name to binary script file. <b>On global install of the package</b>, npm will add all the scripts mentioned in the bin section to the PATH, thus enabling you run them from any directory, and also enable running them simply by calling their names and nothing more!
 
 Let's demonstrate that with simple example:
 
