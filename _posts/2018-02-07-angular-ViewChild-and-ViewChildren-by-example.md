@@ -142,7 +142,7 @@ After saving all of the code and running it you'll be able to see page with date
 It's all seems to be OK but there is one big problem – say I click on the datepicker and choose date on it, the date I chose saved in the model object of the datepicker component I made (the same is with the timepicker the time is saved in the model object of the timepicker component I made),- how can I retrieve this value here in the app component, in general speaking: how can I get value of child component in the parent component?
 
 Let's change the app.component.html to include also div section that displays the date that had been chosen (for now we don't know how to fill the values):
-```
+```html
 <div class="container-fluid">
     <h4>Datepicker in a popup + Timepicker</h4>
     <div class="row">
