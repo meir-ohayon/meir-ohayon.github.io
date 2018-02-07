@@ -150,10 +150,10 @@ Let's change the app.component.html to include also div section that displays th
     </div>
    <div class="row">
         <div class="col-xl-2 col-sm-4">
-            <pre>Selected date: {{ WHAT DO I NEED HERE? }}</pre>
+            Selected date: {{ WHAT DO I NEED HERE? }}
         </div>
         <div class="col-xl-10 col-sm-8">
-            <pre>Selected time: {{ WHAT DO I NEED HERE? }}</pre>
+            Selected time: {{ WHAT DO I NEED HERE? }}
         </div>
     </div>
 </div>
