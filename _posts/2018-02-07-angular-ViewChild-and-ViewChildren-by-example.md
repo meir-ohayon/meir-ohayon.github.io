@@ -193,3 +193,108 @@ To demonstrate this scenario let's add one more timepicker to our template file 
 <code><ngbd-timepicker [spinners]="true"></ngbd-timepicker></code>
 
 How do I get now the separate values of the two occurrences of the timepicker child component? Can I get array reference of child component occurrences?
+
+## Before introducing ViewChildren to get array reference of child component occurrences
+We will add second timepicker to our template and we want both timepickers to display their selected values, so our template file, app.component.html, needs to look like this (for now we don't know how to fill the values for the timepickers):
+```html
+<div class="container-fluid">
+    <h4>Datepicker in a popup + Timepicker</h4>
+    <div class="row">
+        <div class="col-xl-2 col-sm-4">
+            <ngbd-datepicker-popup></ngbd-datepicker-popup>    
+        </div>
+        <div class="col-xl-10 col-sm-8">
+            <ngbd-timepicker></ngbd-timepicker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2 col-sm-4">
+            {% raw %}
+            <pre>Selected date: {{ datePicker?.model | json }}</pre>
+            {% endraw %}
+        </div>
+        <div class="col-xl-10 col-sm-8">
+            {% raw %}
+            <pre>Selected time: {{ WHAT DO I NEED HERE? }}</pre>
+            {% endraw %}
+        </div>
+    </div>
+</div>
+
+<hr>
+<h4>Timepicker with spinners</h4>
+<ngbd-timepicker [spinners]="true"></ngbd-timepicker>
+<div>
+    {% raw %}
+    <pre>Selected time: {{ WHAT DO I NEED HERE? }}</pre>
+    {% endraw %}
+</div>
+```
+So again how can we get access to the selected time values?
+
+## Now introducing ViewChildren to get array reference of child component occurrences
+With the use of ViewChildren we can reference child component occurrences to array variable,- to QueryList object if to be precise,- but it can be easily to array using its toArray method.
+
+Open the app component file and change the first import statement to include also the ViewChildren and the QueryList:
+```javascript
+import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
+```
+In the app component class initialize two variables to for each timepicker:
+<code>
+time1: Object;
+time2: Object;
+</code>  
+Use the ViewChildren to get QueryList of timepickers and try to assign them to the two variables in the constructor:
+```javascript
+@ViewChildren(NgbdTimepicker) timePickers: QueryList<NgbdTimepicker>;
+constructor() {
+    this.time1 = this.timePickers.toArray()[0];
+    this.time2 = this.timePickers.toArray()[1];
+}
+```
+And in the template file we'll use it:
+```html
+{% raw %}
+<pre>Selected time: {{ time1?.model | json }}</pre>
+<pre>Selected time: {{ time2?.model | json }}</pre>
+{% endraw %}
+```
+If you'll do all of the above and run it, the application will not run and you'll get error message in the browser console: this.timePickers is udefined – that error is because the ViewChildren (and ViewChild) instances are not available in the constructor life cycle phase and therefore you need to postpone those assigns to later phase in the life cycle: AfterViewChecked
+
+So change the first import to include the AfterViewChecked and the class declaration to implement this phase and finally move those assigns to the ngAfterViewChecked method:
+```javascript
+import { Component, ViewChild, ViewChildren, QueryList, AfterViewChecked } from '@angular/core';
+…
+export class AppComponent implements AfterViewChecked {
+  time1: Object;
+  time2: Object; 
+  @ViewChild(NgbdDatepickerPopup) private datePicker: NgbdDatepickerPopup;
+  @ViewChildren(NgbdTimepicker) timePickers: QueryList<NgbdTimepicker>;
+
+  ngAfterViewChecked() {
+    this.time1 = this.timePickers.toArray()[0];
+    this.time2 = this.timePickers.toArray()[1];
+  }
+}
+```
+Now everything seems to work fine (test it!), – but if you open the browser console you'll see error message of: Expression has changed after it was checked. Previous value: 'null'. Current value: 'undefined'.
+
+Although the exception appear in development mode only at the moment the value is checked and it is harmless (the application works), it is obviously desired to get rid of it.
+
+For details about this exception see this stack overflow: https://stackoverflow.com/questions/39787038/how-to-manage-angular2-expression-has-changed-after-it-was-checked-exception-w ,and following the recommendation there you'll need to use the ChangeDetectorRef – so add it to the import statement:
+```javascript
+import { Component, ViewChild, ViewChildren, QueryList, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+```
+And inject it in the constructor:
+```javascript
+constructor(private cdRef:ChangeDetectorRef) {}
+```
+Finally use it in the ngAfterViewChecked method:
+```javascript
+ngAfterViewChecked() {
+    this.time1 = this.timePickers.toArray()[0];
+    this.time2 = this.timePickers.toArray()[1];
+    this.cdRef.detectChanges();
+  }
+```
+Now everything will work fine without any exceptions.
