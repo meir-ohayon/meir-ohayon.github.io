@@ -1,0 +1,161 @@
+---
+layout: post
+title: Angular ViewChild and ViewChildren by example
+date: 2018-02-07
+categories: angular
+---
+
+In this post I'll explain the use of Angular ViewChild and ViewChildren all accompanied with code to demonstrate the usage of them. Plunker link to the full code we'll use are listed in the bottom of this post.
+
+## ViewChild and ViewChildren
+To demonstrate the usage of ViewChild and ViewChildren we'll do a demo using the ng-bootstrap datepicker & timepicker.
+Install the [ng-bootstrap](https://ng-bootstrap.github.io/#/getting-started) by running <code>npm install --save @ng-bootstrap/ng-bootstrap</code>
+
+> If you are using SystemJS, you should also adjust your configuration to point to the UMD bundle. 
+> In your systemjs config file, map needs to tell the System loader where to look for ng-bootstrap: 
+>
+> map: {
+>
+>   '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+>
+> }
+
+Add the bootstrap css and the font awesome css in the index.html :
+```
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@4.0.0-beta.2/dist/css/bootstrap.min.css">
+```
+
+Edit the app module (your root module) to look like that:
+```javascript
+import { NgModule }      from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { FormsModule } from '@angular/forms';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AppComponent }  from './app.component';
+import { NgbdDatepickerPopup } from './datepickers/datepicker-popup';
+import { NgbdTimepicker } from './timepickers/timepicker.component';
+
+@NgModule({
+  imports: [ 
+    NgbDatepickerModule.forRoot(), 
+    NgbTimepickerModule.forRoot(), 
+    BrowserModule, 
+    FormsModule 
+  ],
+  declarations: [ AppComponent, NgbdDatepickerPopup, NgbdTimepicker ],
+  bootstrap:    [ AppComponent ]
+})
+export class AppModule { }
+```
+> Pay notice to the line: <code>import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';</code>
+>
+> In the ng-bootstrap documentation they guide us to import the main module like this: <code>import {NgbModule} from '@ng-bootstrap/ng-bootstrap';</code>
+>
+> But here we are interesting only on the datepicker and timepicker so we imported only those modules specifically.
+
+> The next lines to pay notice about are:
+>
+> import { NgbdDatepickerPopup } from './datepickers/datepicker-popup';
+>
+> import { NgbdTimepicker } from './timepickers/timepicker.component';
+>
+> Those import statements are for components we are going to create very soon. The purpose for those components is to encapsulate the ng-bootstrap datepicker & timepicker into components with configuration settings so that we can reuse those pre-configured components without the need to define the settings again in each call to datepicker/timepicker.
+
+## Creating the timepicker component
+Create folder called timepickers and in it create new file called timepicker.component.ts and paste this in it:
+```javascript
+import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'ngbd-timepicker',
+  templateUrl: './timepicker.html'
+})
+export class NgbdTimepicker {
+  @Input() spinners: Boolean = false;
+  model: Object;
+}
+```
+Now create new file timepicker.html in the same folder and paste this in it:
+```
+<ngb-timepicker [(ngModel)]="model" [seconds]="true" [spinners]="spinners"></ngb-timepicker>
+```
+For details on the available timepicker options see [here](https://ng-bootstrap.github.io/#/components/timepicker/examples) in the ng-bootstrap documentation.
+
+## Creating the datepicker component
+Create folder called datepickers and in it create new file called datepicker-popup.ts and paste this in it:
+```javascript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngbd-datepicker-popup',
+  templateUrl: './datepicker-popup.html'
+})
+export class NgbdDatepickerPopup {
+    model: Object;
+    date: Date = new Date();
+    minimumDate = { year: this.date.getFullYear() - 3, month: 1, day: 1 };
+    maximumDate = { year: this.date.getFullYear() + 3, month: 12, day: 31 };
+}
+```
+Now create new file datepicker-popup.html in the same folder and paste this in it:
+```
+<div class="input-group">
+  <input class="form-control" placeholder="yyyy-mm-dd" readonly [minDate]="minimumDate" [maxDate]="maximumDate" [outsideDays]="'collapsed'"
+    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+  <button class="input-group-addon" (click)="d.toggle()" type="button">
+       <span class="fa fa-calendar"></span>
+  </button>
+</div>
+```
+For details on the available datepicker options see [here](https://ng-bootstrap.github.io/#/components/datepicker/examples) in the ng-bootstrap documentation.
+
+## Let's use datepicker and timepicker in some component
+Edit the root component to look like that:
+```javascript
+import { Component } from '@angular/core';
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html'
+})
+export class AppComponent { }
+```
+And add new file app.component.html and paste this in it:
+```
+<div class="container-fluid">
+    <h4>Datepicker in a popup + Timepicker</h4>
+    <div class="row">
+        <div class="col-xl-2 col-sm-4">
+            <ngbd-datepicker-popup></ngbd-datepicker-popup>    
+        </div>
+        <div class="col-xl-10 col-sm-8">
+            <ngbd-timepicker></ngbd-timepicker>
+        </div>
+    </div>
+</div>
+```
+After saving all of the code and running it you'll be able to see page with datepicker and timepicker in each you can enter values of time/date.
+
+It's all seems to be OK but there is one big problem – say I click on the datepicker and choose date on it, the date I chose saved in the model object of the datepicker component I made (the same is with the timepicker the time is saved in the model object of the timepicker component I made),- how can I retrieve this value here in the app component, in general speaking: how can I get value of child component in the parent component?
+
+Let's change the app.component.html to include also div section that displays the date that had been chosen (for now we don't know how to fill the values):
+```
+<div class="container-fluid">
+    <h4>Datepicker in a popup + Timepicker</h4>
+    <div class="row">
+        …
+    </div>
+   <div class="row">
+        <div class="col-xl-2 col-sm-4">
+            <pre>Selected date: {{ WHAT DO I NEED HERE? }}</pre>
+        </div>
+        <div class="col-xl-10 col-sm-8">
+            <pre>Selected time: {{ WHAT DO I NEED HERE? }}</pre>
+        </div>
+    </div>
+</div>
+```
+So how can we get access to the selected date/time values?
