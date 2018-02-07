@@ -179,11 +179,12 @@ export class AppComponent {
 }
 ```
 Now we can use this in the template file like this:
-
-<code>
+```html
+{% raw %}
 <pre>Selected date: {{ datePicker?.model | json }}</pre>
 <pre>Selected time: {{ timePicker?.model | json }}</pre>
-</code>
+{% endraw %}
+```
 
 This is fine solution to get values of single occurrence of child component – but what if we have multiple occurrences of the same child component?
 
