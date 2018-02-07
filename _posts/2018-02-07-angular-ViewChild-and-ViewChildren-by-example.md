@@ -163,3 +163,32 @@ Let's change the app.component.html to include also div section that displays th
 </div>
 ```
 So how can we get access to the selected date/time values?
+
+## Introducing ViewChild to get access to child component
+With the use of ViewChild we can reference child component to variable.
+
+Change the app component to look like this:
+```javascript
+import { Component, ViewChild } from '@angular/core';
+import { NgbdDatepickerPopup } from './datepickers/datepicker-popup';
+import { NgbdTimepicker } from './timepickers/timepicker.component';
+@Component({ … })
+export class AppComponent {
+  @ViewChild(NgbdDatepickerPopup) private datePicker: NgbdDatepickerPopup;
+  @ViewChild(NgbdTimepicker) private timePicker: NgbdTimepicker;
+}
+```
+Now we can use this in the template file like this:
+
+<code>
+<pre>Selected date: {{ datePicker?.model | json }}</pre>
+<pre>Selected time: {{ timePicker?.model | json }}</pre>
+</code>
+
+This is fine solution to get values of single occurrence of child component – but what if we have multiple occurrences of the same child component?
+
+To demonstrate this scenario let's add one more timepicker to our template file (this time, just for fun, I did it with spinners):
+
+<code><ngbd-timepicker [spinners]="true"></ngbd-timepicker></code>
+
+How do I get now the separate values of the two occurrences of the timepicker child component? Can I get array reference of child component occurrences?
