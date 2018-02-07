@@ -240,11 +240,10 @@ Open the app component file and change the first import statement to include als
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 ```
 In the app component class initialize two variables to for each timepicker:
-<code>
+```
 time1: Object;
-
 time2: Object;
-</code>  
+```  
 Use the ViewChildren to get QueryList of timepickers and try to assign them to the two variables in the constructor:
 ```javascript
 @ViewChildren(NgbdTimepicker) timePickers: QueryList<NgbdTimepicker>;
