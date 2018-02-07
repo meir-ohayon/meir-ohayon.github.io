@@ -298,3 +298,5 @@ ngAfterViewChecked() {
   }
 ```
 Now everything will work fine without any exceptions.
+
+Plunker link to the full code available [here](https://plnkr.co/edit/9pP6V1dPXUVIcEYqs29V?p=preview).
