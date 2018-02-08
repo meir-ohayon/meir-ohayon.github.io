@@ -7,6 +7,10 @@ categories: angular
 
 In this post I'll explain the use of Angular ViewChild and ViewChildren all accompanied with code to demonstrate the usage of them. Plunker link to the full code we'll use are listed in the bottom of this post.
 
+ViewChild and ViewChildren enable us to communicate with child components and thus enabling to encapsulate some business logic along with its related view (template) to component of its own, so that it can be reused more than once,- not as singleton (one shared occurrence) like service, that also is intended for business logic only and doesn't have template,- but here we use component, meaning that each use has its own occurrence and also accompanied with template as it is always in components (that the main difference between components and services). <b>All of that in the reality that any component that will use it will need to communicate with it</b> - that is what ViewChild and ViewChildren come to solve!
+
+That open for us the way to modular our project without any limitations – <b>any</b> part that has the potential to be used more than once (in one component or across different components)   can, and should be, moved to component if its own,- we can take it even further than that and organize those general-purpose components under some folder called 'shared' or 'common' or whatever,- we can take it even further and use [share module](https://angular.io/guide/sharing-ngmodules),- but here we'll focus in demonstrating the use case of ViewChild and ViewChildren solely and not in other angular modularity aspects.
+
 ## ViewChild and ViewChildren
 To demonstrate the usage of ViewChild and ViewChildren we'll do a demo using the ng-bootstrap datepicker & timepicker.
 Install the [ng-bootstrap](https://ng-bootstrap.github.io/#/getting-started) by running <code>npm install --save @ng-bootstrap/ng-bootstrap</code>
