@@ -304,3 +304,56 @@ ngAfterViewChecked() {
 Now everything will work fine without any exceptions.
 
 Plunker link to the full code available [here](https://plnkr.co/edit/9pP6V1dPXUVIcEYqs29V?p=preview).
+
+## Drawback of our usage of ViewChildren: the use of array by index
+The only drawback of our usage of ViewChildren is that is uses array by index – i.e: this.timePickers.toArray()[0] – this implies drawback because if I will change in the template file the position of the first timepicker to be the second (switching the order), then its index will also changed accordingly and I'll need to return to the component code and change it from this.timePickers.toArray()[0] to this.timePickers.toArray()[1] – this may be forgotten and any way it would be useful not to rely upon index,- but to get array element by name rather than by index.
+
+Let's try to achieve this goal.
+
+## Bonus: Assign to array by name with ViewChildren
+To start with there's a thing I need reveal here: the first timepicker is for work time and the second timepicker is for fun time,- well, I know that I should tell you this earlier, but better late than never.
+
+So let's start by changing the variable names in our root component from time1 and time2 to meaning names:
+```javascript
+workTime: Object;
+funTime: Object;
+ngAfterViewChecked() {
+   this.workTime = …
+   this.funTime = …
+   …
+}
+```
+Also in our root template file, app.component.html:
+```html
+{% raw %}
+<pre>Selected time: {{ workTime?.model | json }}</pre>
+<pre>Selected time: {{ funTime?.model | json }}</pre>
+{% endraw %}
+```
+Next in the timepicker.component.ts file add @Input called name (with type string) like this:
+```javascript
+export class NgbdTimepicker {
+  @Input() name: string = '';
+  …
+ }
+```
+Next return again to app.component.html to define those inputs in the timepickers components:
+```html
+<ngbd-timepicker [name]="'work'"></ngbd-timepicker>
+<ngbd-timepicker [spinners]="true" [name]="'fun'"></ngbd-timepicker>
+```
+<b><u>Important:</u></b> Pay notice to the single quotation marks between the double quotation marks, i.e. "<b>'</b>...<b>'</b>" – without them it will not work, since it will not recognize as string, as it intended to be, but as a variable name and this is not our intention here. 
+
+Finally return again to the root component and change the ngAfterViewChecked method to look like this:
+```javascript
+ngAfterViewChecked() {
+    let workIndex = this.timePickers.toArray().map(function(e) { return e.name; }).indexOf('work');
+    let funIndex = this.timePickers.toArray().map(function(e) { return e.name; }).indexOf('fun');
+    this.workTime = this.timePickers.toArray()[workIndex];
+    this.funTime = this.timePickers.toArray()[funIndex];
+    this.cdRef.detectChanges();
+}
+```
+And that’s all. Plunker link to the full code of this bonus section is available [here](https://plnkr.co/edit/g1RODUcTXKmpsC5RGMsn?p=preview) (the full plunker code we did earlier before the bonus section is available [here](https://plnkr.co/edit/9pP6V1dPXUVIcEYqs29V?p=preview)).
+
+Final words: happy modular coding!
