@@ -34,3 +34,28 @@ Here is the list of the titles of topics:
 
 ## Why we need modules at all? (What is the purpose they are actually fill?)
 To understand the need for modules, let us do some coding. Create some html file (I called this file "index.without-modules.html"), and put this content in it:
+```
+<!DOCTYPE html>
+<html>
+  <head>
+	  <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <title>Example of ES6 Classes</title>
+  </head>	
+  <body>
+    <div id="animal-container"></div>
+  
+    <script src="src/without-modules/owner.js"></script>
+    <script src="src/without-modules/animal.js"></script>
+    <script src="src/without-modules/snake.js"></script>
+    <script src="src/without-modules/horse.js"></script>
+    <script src="src/without-modules/main.js"></script>
+  </body>
+</html>
+```
+Now create the files mentioned in the script tags add to each of the some console.log messages and run the html file to verify their loads.
+Now that everything loads properly make the contents of the script tags to be as follows:
+<b>src/without-modules/owner.js</b>
+'''javascipt
+
+'''
