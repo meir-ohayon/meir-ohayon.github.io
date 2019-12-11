@@ -771,15 +771,15 @@ Node.js had no default object for the global scope, like the window object in cl
 So the CommonJS as a module pattern has to be different to meet those Node.js requirements. Again other than those differences, the most important difference seems to be regarding to relative path resolution.
 
 #### Relative path resolution that conforms both to the ES6 module pattern (client-side js in general or html – in short: any client-side) and the CommonJS module pattern
-* \.\/ that denotes the same path of the script (or the html)
-* \.\.\/ that denotes one level up (the parent path) of the script path (or the html path)
-  * We can concatenate this denotes so that \.\.\/\.\.\/ means two levels up, \.\.\/\.\.\/\.\.\/ means three levels up, and so forth.
+* ./ that denotes the same path of the script (or the html)
+* ../ that denotes one level up (the parent path) of the script path (or the html path)
+  * We can concatenate this denotes so that ../../ means two levels up, ../../../ means three levels up, and so forth.
 
 #### Client-side (and it includes of course the case of the ES6 module pattern) relative path resolution 
-* The back slash (\/) denotes the web root. __Important:__ Client side, whether it is javascript or html, does not have access to folders out from the web root (i.e. located not under the web root folder) – the reason for this limitation connected to web security.
+* The back slash (/) denotes the web root. __Important:__ Client side, whether it is javascript or html, does not have access to folders out from the web root (i.e. located not under the web root folder) – the reason for this limitation connected to web security.
 
 #### CommonJS module pattern relative path resolution
-* The back slash (\/) denotes the file system root.
+* The back slash (/) denotes the file system root.
 * Paths that starts directly with folder name implies folder name (aka directory)
 that needs to be located in node_modules folder - node_modules is the conventional name of the folder that the Node.js package loaders uses for package installments (whether npm or yarn) – and it can be under the web root, if the package had been installed locally, or, in the case of global install packages, in some other specific folder designated for those global package installments.
 
