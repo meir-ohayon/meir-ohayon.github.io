@@ -437,8 +437,8 @@ The demo we've done implements the initialization and display of the horses/snak
 …
    switch (selectedType) {
                 case "horse":
-                    displayHorses(m);
-                    break;
+                  displayHorses(m);
+                  break;
                 case "snake":
                   displaySnakes(m);
                   break;
@@ -472,8 +472,8 @@ We can also do our code more prettier/structured by moving this code instead to 
 …
    switch (selectedType) {
                 case "horse":
-                    import("./partials/horses.js").then(pm => pm.viewHorses(m));
-                    break;
+                  import("./partials/horses.js").then(pm => pm.viewHorses(m));
+                  break;
                 case "snake":
                   import("./partials/snakes.js").then(pm => pm.viewSnakes(m));
                   break;
@@ -507,7 +507,7 @@ export function viewSnakes(snakeModulePromise) {
 ```
 
 ### Implementing the popular MVC design pattern with ES6 Modules
-MVC is very popular design pattern. For those not familiar about, MVC it is the acronyms of Model View Controller,- and as the name implies it urge us to structure our application to three layers: the module layer that suppose to consist the data and its internals, the view layer that suppose to consist the display that the end user will see (only the presentation and not any logic connected to them,- and that includes also direct logic that connected to the presentation like event handlers), and the controller layer that suppose as a mediate between the data layer and the view layer and thus consist all the logic code (like nerve center that controls all). Here is how we implement this design using ES6 modules:
+MVC is very popular design pattern. For those not familiar about, MVC it is the acronyms of Model View Controller,- and as the name implies it urge us to structure our application to three layers: the module layer that suppose to consist the data and its internals, the view layer that suppose to consist the display that the end user will see (only the presentation and not any logic connected to them,- and that includes also direct logic that connected to the presentation like event handlers), and the controller layer that suppose to act as a mediate between the data layer and the view layer and thus consist all the logic code (like nerve center that controls all). Here is how we implement this design using ES6 modules:
 
 First we need html file and point our entry file to be our main controller:
 ```html
