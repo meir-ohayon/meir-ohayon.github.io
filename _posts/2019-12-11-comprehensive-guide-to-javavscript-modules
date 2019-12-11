@@ -10,27 +10,27 @@ Here is the list of the titles of topics:
 * Why we need modules at all? (What is the purpose they are actually fill?)
 * Definition of modules
 * The ES6 Modules
- *	Digging more on ES6 Modules
- *	Using Default Exports
- *	Import a module for its side effects only
- *	Conventional ES6 modules (those discussed till now) are static by nature – i.e. the browser downloads the script files at compile time (upon loading the page),- as opposed to function calls, or any code inside block (like if statements for instance),  that are executed at run time.
- *	Dynamic Import in ES6 Modules
- *	Lazy Loading in action (code example)
- *	Implementing the popular MVC design pattern with ES6 Modules
- *	Using Aggregation Module
+ * Digging more on ES6 Modules
+ * Using Default Exports
+ * Import a module for its side effects only
+ * Conventional ES6 modules (those discussed till now) are static by nature – i.e. the browser downloads the script files at compile time (upon loading the page),- as opposed to function calls, or any code inside block (like if statements for instance),  that are executed at run time.
+ * Dynamic Import in ES6 Modules
+ * Lazy Loading in action (code example)
+ * Implementing the popular MVC design pattern with ES6 Modules
+ * Using Aggregation Module
   *	Aggregating to object
- *	Using external libraries (third-party es6 module-based packages)
- *	ES6 module pattern is different from the CommonJS module pattern regarding to relative path resolution and other fundamental characteristics
-   *	Relative path resolution that conforms both to the ES6 module pattern (client-side js in general or html – in short: any client-side) and the CommonJS module pattern
-   *	Client-side (and it includes of course the case of the ES6 module pattern) relative path resolution
-   *	CommonJS module pattern relative path resolution
-   *	Module Bundlers realizes only the CommonJS module pattern relative path resolution
-*	Module Loaders – What are they and do we still need them?
-*	Module Bundlers
- *	Using module bundler solely for the purpose of creating bundled file to be deployed in the production environment (the web server)
- *	Using module bundler in development stage
- *	Tree Shaking
- *	Lazy loading with module bundlers
+ * Using external libraries (third-party es6 module-based packages)
+ * ES6 module pattern is different from the CommonJS module pattern regarding to relative path resolution and other fundamental characteristics
+   * Relative path resolution that conforms both to the ES6 module pattern (client-side js in general or html – in short: any client-side) and the CommonJS module pattern
+   * Client-side (and it includes of course the case of the ES6 module pattern) relative path resolution
+   * CommonJS module pattern relative path resolution
+   * Module Bundlers realizes only the CommonJS module pattern relative path resolution
+* Module Loaders – What are they and do we still need them?
+* Module Bundlers
+ * Using module bundler solely for the purpose of creating bundled file to be deployed in the production environment (the web server)
+ * Using module bundler in development stage
+ * Tree Shaking
+ * Lazy loading with module bundlers
 
 ## Why we need modules at all? (What is the purpose they are actually fill?)
 To understand the need for modules, let us do some coding. Create some html file (I called this file "index.without-modules.html"), and put this content in it:
