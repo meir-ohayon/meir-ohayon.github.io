@@ -250,8 +250,58 @@ Here are some more details concerning ES6 Modules:
 * Again: though ES6 module exports are read-only the inner properties are NOT read-only (it is 'shallow freeze'),- thus we can assign new value to classification.lifeExpectancy. Add those lines to verify this: ```classification.lifeExpectancy = "15-20"; console.log(classification.lifeExpectancy);```
 * Again: ES6 modules exports are frozen so we cannot assign new values to import identifiers. The follows will produce an error: ```classification = "new value";```
 * We cannot delete import identifier. The follows will produce an error: ```delete classification;```
-* Arrays are object, so same as in inner properties in objects, the elements in array are NOT read-only. ```javascript import { popularBreeds } from "./horse.js"; popularBreeds.push("Mustang"); popularBreeds[0] = "Arabic"; popularBreeds.splice(2, 1); console.log(popularBreeds); ```
+* Arrays are object, so same as in inner properties in objects, the elements in array are NOT read-only. ```import { popularBreeds } from "./horse.js"; popularBreeds.push("Mustang"); popularBreeds[0] = "Arabic"; popularBreeds.splice(2, 1); console.log(popularBreeds); ```
 * The follows will cause an error that will crash the application since we haven't created file called 'hurse.js'. In Firefox we'll get this error message: ```Loading module from “http://<PATH>/hurse.js” was blocked because of a disallowed MIME type (“text/html”).``` In chrome we'll get this error message: ```Failed to load resource: the server responded with a status of 404 (Not Found).``` - Both browsers will not give us indication about the code place (file line code number) causing this error! ```javascript import * as myHurse from "./hurse.js"; ```
-* You can also import the entry file (or any other javascript file) inside the script tag (aka inline), like this: ```html <script type="module">import "/src/with-modules/main.js";</script>```
+* You can also import the entry file (or any other javascript file) inside the script tag (aka inline), like this: ```<script type="module">import "/src/with-modules/main.js";</script>```
 * There are much more detail points to discuss concerning to ES6 Modules – for each one of them I am going to dedicate topic of its own – so keep on reading!
+## Using Default Exports
+There are two different types of export, "named" and "default". Until now we use in our tutorial only the "named" type of export (that is more commonly used by myself), nonetheless sometimes developers prefers the make a use of the "default" export type. Instead of explaining in words what is the default export type and how it differs from the named type, I think it can be best learned by exploring example code, so let's jump ahead directly to code. Create new file called some-module-to-test-with.js and put in it this code:
+```javascript
+let someVar = "kkk";
+export { someVar as default };
+```
+Now add those lines in our entry file (main.js):
+```javascript
+import someVar from "./some-module-to-test-with.js";
+console.log(someVar);
+```
+Here are more things needs to be pointed:
+* This code line is equal alternative to line export { someVar as default } we've used earlier: ```export default someVar;```
+* Only one default export can be in a module so this will produce syntax error: ```let someAnotherVar = "yyy"; export { someAnotherVar as default };```
+* Default export can be imported with any name - Do this to import the same someVar that default exported in the module file with the name someVar, now to import it with the name sVar ! ```import sVar from "./some-module-to-test-with.js"; console.log(sVar);```
+* We can even export default the value itself, like this: ```export default "kkkk";```
+* We can export default named/unamed function and invoke the function in the file that imports. For example use this line for the export: ```export default () => "fffff";``` And this for the import: ```import sVar from "./some-module-to-test-with.js"; console.log(sVar());```
+* Default export can be also used in named/unamed class (try it).
+* Default export can be also used in named/unamed generator function (aka function*).
+## Import a module for its side effects only
+We can import a module for its side effects only, without importing anything, i.e: only import module file for loading it to run its execution code.
 
+To demonstrate this create new file called rounded-frame.js and copy to it this code:
+```javascript
+/*
+Pay attention that there is no export in the next two lines of code - those lines, like any other code placed in this module file that does not need ANY kind of interaction from the file that imports it, will be executed by importing this file for its side effects only, i.e: import "/<PATH-FOR-THIS-FILE>/rounded-frame.js";
+*/
+let animalContainer = document.getElementById("animal-container");
+animalContainer.style.cssText = "border: 2px solid red; border-radius: 33px; padding: 45px; width: 450px;";
+```
+As you can see the intention of this code lines is to add rounded red border around our whole animal display.
+
+Please read also the important comment lines in the head explaining why we are not doing any export over here.
+
+Now let's do the actual import. Add this line of code in our main.js file to execute the global code in the rounded-frame.js file (of course save and refresh the page to see the lovely border it adds): 
+```javascript
+import "./rounded-frame.js";
+```
+__Note:__ If you need some kind of interaction with this module, you cannot use the above approach we called 'side effects only import', rather you need to use the regular export techniques, and that includes ANY kind of interaction needed from the file that imports it: access to identifiers (to get them or set them), execute function code, sending options (parameters).
+
+So if we'll continue the above example by adding the ability to set the border color from the file that imports this module file,- we do that using export of wrapper function that gets the color as parameter. Here is the export code (in rounded-frame.js) needed for this:
+```javascript
+export default function(borderColor) {
+    animalContainer.style.cssText = "border: 2px solid " + borderColor + "; border-radius: 33px; padding: 45px; width: 450px;";
+}
+```
+And here the complementary import code (in main.js):
+```javascript
+import m from "./rounded-frame.js";
+m("blue");
+```
