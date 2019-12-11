@@ -9,7 +9,7 @@ In this guide I'm going to point out all the aspect details of modules in javasc
 Here is the list of the titles of topics:
 * Why we need modules at all? (What is the purpose they are actually fill?)
 * Definition of modules
-*	The ES6 Modules
+* The ES6 Modules
  *	Digging more on ES6 Modules
  *	Using Default Exports
  *	Import a module for its side effects only
@@ -32,3 +32,5 @@ Here is the list of the titles of topics:
  *	Tree Shaking
  *	Lazy loading with module bundlers
 
+## Why we need modules at all? (What is the purpose they are actually fill?)
+To understand the need for modules, let us do some coding. Create some html file (I called this file "index.without-modules.html"), and put this content in it:
