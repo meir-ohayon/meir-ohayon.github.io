@@ -2,13 +2,13 @@
 layout: post
 title: Comprehensive Guide to Javavscript Modules
 date: 2019-12-11
-categories: js
+categories: javascript
 ---
 
 In this guide I'm going to point out all the aspect details of modules in javascript starting with why we need modules at all? (what is the purpose they are actually fill?) – and from this point I'll describe extensively the details of ES6 modules.
 Here is the list of the titles of topics:
 * Why we need modules at all? (What is the purpose they are actually fill?)
-*	Definition of modules
+* Definition of modules
 *	The ES6 Modules
  *	Digging more on ES6 Modules
  *	Using Default Exports
@@ -31,3 +31,4 @@ Here is the list of the titles of topics:
  *	Using module bundler in development stage
  *	Tree Shaking
  *	Lazy loading with module bundlers
+
