@@ -815,7 +815,8 @@ The answer for this is that in general we don't need it anymore, unless:
 The module paradigm has one big drawback aspect: performance - that is a major issue in any substantial project that involves more than few files. The prevailed custom in those projects was (and I'm not talking here necessarily about module files) that when it comes to move those kinds of projects to the production environment, i.e. uploading the project to the web server, we did those steps in advance (typically with the help of some task runner tool like Grunt or Gulp):
 * Concatenating all the files to one big file.
 * Minifying this file.
-How we can concatenate files that use import statements that obviously specify the path for the file they intend to import?
+
+Here when it comes to module-based projects the question is how we can concatenate files that use import statements that obviously specify the path for the file they intend to import?
 
 Here Module Bundlers comes to help. Module Bundlers compiling javascript module files into one compiled file (typically also minifying it) that does not includes any imports/exports (all import and export statements had been removed from the outputted compiled file), - but still this single outputted compiled file must to faithfully reflect, by practical mean, its corresponded input module files (that’s the challenge must be met by Module Bundlers and obviously they succeed doing so). 
 
