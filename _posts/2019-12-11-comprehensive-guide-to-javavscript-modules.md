@@ -6,7 +6,7 @@ categories: javascript
 ---
 
 In this guide I'm going to point out all the aspect details of modules in javascript starting with why we need modules at all? (what is the purpose they are actually fill?) – and from this point I'll describe extensively the details of ES6 modules.
-Here is the list of the titles of topics:
+Here is the list of the titles topics:
 * Why we need modules at all? (What is the purpose they are actually fill?)
 * Definition of modules
 * The ES6 Modules
@@ -21,10 +21,6 @@ Here is the list of the titles of topics:
   *	Aggregating to object
  * Using external libraries (third-party es6 module-based packages)
  * ES6 module pattern is different from the CommonJS module pattern regarding to relative path resolution and other fundamental characteristics
-   * Relative path resolution that conforms both to the ES6 module pattern (client-side js in general or html – in short: any client-side) and the CommonJS module pattern
-   * Client-side (and it includes of course the case of the ES6 module pattern) relative path resolution
-   * CommonJS module pattern relative path resolution
-   * Module Bundlers realizes only the CommonJS module pattern relative path resolution
 * Module Loaders – What are they and do we still need them?
 * Module Bundlers
  * Using module bundler solely for the purpose of creating bundled file to be deployed in the production environment (the web server)
@@ -99,7 +95,10 @@ class Snake extends Animal {
         console.log("Slithering...!");
     }
 }
-src/without-modules/horse.js
+```
+
+**src/without-modules/horse.js**
+```javascript
 class Horse extends Animal {
     constructor(...args) {
         super(...args);
